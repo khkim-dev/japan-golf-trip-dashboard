@@ -1,0 +1,755 @@
+.app {
+  min-height: 100svh;
+  padding: 20px 14px 28px;
+  background:
+    linear-gradient(180deg, rgba(245, 248, 239, 0.18), rgba(245, 248, 239, 0.9)),
+    linear-gradient(135deg, #315f45 0%, #f3f0df 52%, #d54d3c 100%);
+}
+
+.dashboard-shell {
+  width: min(100%, 430px);
+  display: grid;
+  gap: 14px;
+  margin: 0 auto;
+}
+
+.landing,
+.content-panel {
+  border: 1px solid rgba(255, 255, 255, 0.62);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.93);
+  box-shadow: 0 18px 44px rgba(25, 39, 30, 0.18);
+}
+
+.landing {
+  position: relative;
+  min-height: 430px;
+  display: grid;
+  align-content: end;
+  gap: 22px;
+  padding: 30px 22px 24px;
+  overflow: hidden;
+  color: #ffffff;
+  background:
+    linear-gradient(180deg, rgba(10, 18, 14, 0.1), rgba(10, 18, 14, 0.76)),
+    url('/images/japan-golf-hero.png') center/cover;
+}
+
+.hero-copy {
+  display: grid;
+  gap: 12px;
+}
+
+.eyebrow {
+  margin: 0;
+  color: #f5d37a;
+  font-size: 0.76rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+h1,
+h2,
+p {
+  margin: 0;
+}
+
+h1 {
+  max-width: 10ch;
+  color: #ffffff;
+  font-size: clamp(2.2rem, 12vw, 3.45rem);
+  line-height: 1.02;
+  letter-spacing: 0;
+}
+
+.trip-period {
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 1.05rem;
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.countdown-panel {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px;
+  border: 1px solid #d7ddcf;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.countdown-label {
+  color: #647064;
+  font-size: 0.82rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.countdown-panel strong {
+  color: #c54033;
+  font-size: 2.35rem;
+  line-height: 0.9;
+}
+
+.section-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+h2 {
+  color: #1c2b22;
+  font-size: 1.05rem;
+}
+
+.section-heading span {
+  color: #74796f;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.mobile-tabs {
+  position: sticky;
+  top: 8px;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 6px;
+  padding: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.66);
+  border-radius: 8px;
+  background: rgba(250, 250, 244, 0.92);
+  box-shadow: 0 14px 34px rgba(25, 39, 30, 0.16);
+}
+
+.mobile-tabs button {
+  min-width: 0;
+  min-height: 42px;
+  padding: 8px 4px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  color: #596156;
+  background: transparent;
+  font: inherit;
+  font-size: 0.72rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.mobile-tabs button.active {
+  color: #ffffff;
+  background: #245c44;
+}
+
+.mobile-tabs button:focus-visible {
+  outline: 3px solid #d54d3c;
+  outline-offset: 2px;
+}
+
+.content-panel {
+  display: grid;
+  gap: 8px;
+  min-height: 132px;
+  padding: 20px;
+}
+
+.panel-kicker {
+  color: #c54033;
+  font-size: 0.76rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.content-panel h2 {
+  font-size: 1.35rem;
+}
+
+.content-panel p:last-child {
+  color: #5f685d;
+  line-height: 1.55;
+}
+
+.profile-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.profile-card {
+  display: grid;
+  gap: 7px;
+  align-content: start;
+  padding: 7px;
+  border: 1px solid #e0e5d8;
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.profile-card img {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 6px;
+  object-fit: cover;
+}
+
+.profile-copy {
+  min-width: 0;
+  display: grid;
+  gap: 3px;
+  text-align: center;
+}
+
+.profile-copy h3 {
+  margin: 0;
+  color: #1c2b22;
+  font-size: 0.95rem;
+  line-height: 1.1;
+}
+
+.profile-copy span {
+  color: #5f685d;
+  font-size: 0.68rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+@media (max-width: 380px) {
+  .profile-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.schedule-board {
+  display: grid;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.timeline-card {
+  display: grid;
+  gap: 14px;
+  padding: 14px;
+  border: 1px solid #d6ddcf;
+  border-radius: 8px;
+  background: #fbfbf7;
+}
+
+.timeline-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.timeline-heading span {
+  color: #c54033;
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.timeline-heading h3 {
+  margin: 3px 0 0;
+  color: #1c2b22;
+  font-size: 1.15rem;
+}
+
+.timeline-heading p {
+  color: #74796f;
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.flight-chart {
+  display: grid;
+  grid-template-columns: 42px repeat(2, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.flight-chart-head {
+  min-height: 24px;
+  display: grid;
+  place-items: center;
+  gap: 2px;
+  color: #697067;
+  font-size: 0.62rem;
+  font-weight: 800;
+  text-align: center;
+}
+
+.flight-chart-head strong {
+  color: #1c2b22;
+  font-size: 0.74rem;
+}
+
+.flight-chart-head span {
+  line-height: 1.15;
+}
+
+.flight-chart-row {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: subgrid;
+  align-items: stretch;
+  min-width: 0;
+}
+
+.flight-chart-row > strong {
+  display: grid;
+  place-items: center start;
+  color: #1c2b22;
+  font-size: 0.82rem;
+}
+
+.flight-cell {
+  min-height: 44px;
+  display: grid;
+  place-items: center;
+  gap: 1px;
+  padding: 6px 4px;
+  border-radius: 8px;
+  color: #ffffff;
+  font-weight: 800;
+}
+
+.flight-route {
+  align-content: center;
+  justify-items: center;
+  text-align: center;
+}
+
+.flight-route.outbound.full {
+  background: #245c44;
+}
+
+.flight-route.outbound.late {
+  background: #6b5b2f;
+}
+
+.flight-route.outbound.short {
+  background: #4a6977;
+}
+
+.flight-route.inbound {
+  background: #c54033;
+}
+
+.flight-cell span {
+  font-size: 0.62rem;
+  line-height: 1.1;
+}
+
+.flight-cell b {
+  font-size: clamp(0.68rem, 2.8vw, 0.88rem);
+  line-height: 1.15;
+  white-space: nowrap;
+}
+
+
+.schedule-card {
+  display: grid;
+  gap: 12px;
+  padding: 14px;
+  border: 1px solid #e0e5d8;
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.schedule-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.schedule-tags span {
+  padding: 4px 8px;
+  border-radius: 999px;
+  color: #245c44;
+  background: #edf4ea;
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+
+.day-blocks {
+  display: grid;
+  gap: 8px;
+}
+
+.day-block {
+  display: grid;
+  grid-template-columns: 52px minmax(0, 1fr);
+  gap: 10px;
+  align-items: center;
+  padding: 10px;
+  border-radius: 8px;
+  background: #fbfbf7;
+}
+
+.day-block span {
+  display: grid;
+  place-items: center;
+  min-height: 28px;
+  border-radius: 999px;
+  color: #ffffff;
+  background: #245c44;
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+.day-block p {
+  color: #364139;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.schedule-date {
+  display: grid;
+  gap: 3px;
+}
+
+.schedule-date span {
+  color: #c54033;
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.schedule-date strong {
+  color: #1c2b22;
+  font-size: 1.1rem;
+}
+
+.schedule-card ul {
+  display: grid;
+  gap: 7px;
+  margin: 0;
+  padding-left: 18px;
+  color: #5f685d;
+  line-height: 1.45;
+}
+
+.flight-board {
+  display: grid;
+  gap: 14px;
+  margin-top: 8px;
+}
+
+.flight-summary-list {
+  display: grid;
+  gap: 10px;
+}
+
+.flight-summary,
+.flight-summary-card {
+  border: 1px solid #e0e5d8;
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.flight-summary {
+  display: grid;
+  gap: 12px;
+  padding: 14px;
+  background: #fbfbf7;
+}
+
+.flight-summary-card {
+  display: grid;
+  grid-template-columns: 54px minmax(0, 1fr);
+  gap: 10px;
+  padding: 12px;
+}
+
+.flight-summary-card strong {
+  color: #1c2b22;
+}
+
+.flight-summary-routes {
+  min-width: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.flight-summary-routes div {
+  display: grid;
+  gap: 3px;
+}
+
+.flight-summary-card span {
+  color: #c54033;
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.flight-summary-card p {
+  color: #202821;
+  font-weight: 800;
+}
+
+.flight-summary-card small {
+  color: #697067;
+  line-height: 1.35;
+}
+
+.booking-grid {
+  display: grid;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.booking-card {
+  display: grid;
+  gap: 6px;
+  padding: 14px;
+  border: 1px solid #e0e5d8;
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.booking-card span {
+  color: #c54033;
+  font-size: 0.76rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.booking-card h3 {
+  margin: 0;
+  color: #1c2b22;
+  font-size: 1.1rem;
+}
+
+.booking-card p {
+  color: #5f685d;
+  line-height: 1.45;
+}
+
+.booking-card small {
+  color: #697067;
+  font-size: 0.78rem;
+  line-height: 1.4;
+}
+
+.booking-facts {
+  display: grid;
+  gap: 5px;
+  margin: 4px 0 2px;
+}
+
+.booking-facts div {
+  display: grid;
+  grid-template-columns: 58px minmax(0, 1fr);
+  gap: 8px;
+  align-items: start;
+}
+
+.booking-facts dt {
+  color: #c54033;
+  font-size: 0.74rem;
+  font-weight: 800;
+}
+
+.booking-facts dd {
+  min-width: 0;
+  margin: 0;
+  color: #4f5a50;
+  font-size: 0.8rem;
+  line-height: 1.35;
+}
+
+.map-link {
+  width: fit-content;
+  min-height: 34px;
+  display: inline-grid;
+  place-items: center;
+  margin-top: 4px;
+  padding: 0 12px;
+  border-radius: 999px;
+  color: #ffffff;
+  background: #245c44;
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.map-link:focus-visible {
+  outline: 3px solid #d54d3c;
+  outline-offset: 2px;
+}
+
+.golf-card {
+  gap: 8px;
+}
+
+.tee-list {
+  display: grid;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.tee-row {
+  display: grid;
+  grid-template-columns: 54px minmax(0, 1fr);
+  gap: 8px;
+  align-items: center;
+  padding: 8px;
+  border-radius: 8px;
+  background: #fbfbf7;
+}
+
+.tee-row strong {
+  display: grid;
+  place-items: center;
+  min-height: 28px;
+  border-radius: 999px;
+  color: #ffffff;
+  background: #245c44;
+  font-size: 0.76rem;
+}
+
+.tee-row p {
+  color: #1c2b22;
+  font-weight: 800;
+}
+
+.expense-board {
+  display: grid;
+  gap: 14px;
+  margin-top: 8px;
+}
+
+.expense-form,
+.expense-list {
+  display: grid;
+  gap: 12px;
+  padding: 14px;
+  border: 1px solid #e0e5d8;
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.expense-form label {
+  display: grid;
+  gap: 6px;
+  color: #1c2b22;
+  font-weight: 800;
+}
+
+.expense-form input,
+.expense-form select {
+  min-height: 42px;
+  width: 100%;
+  padding: 0 12px;
+  border: 1px solid #cfd8c8;
+  border-radius: 6px;
+  color: #202821;
+  background: #fbfbf7;
+  font: inherit;
+  font-weight: 700;
+}
+
+.expense-form fieldset {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 12px;
+  border: 1px solid #e0e5d8;
+  border-radius: 8px;
+}
+
+.expense-form legend {
+  padding: 0 4px;
+  color: #1c2b22;
+  font-weight: 800;
+}
+
+.share-member-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.share-member-grid label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 36px;
+  color: #5f685d;
+  font-size: 0.9rem;
+}
+
+.share-member-grid input {
+  width: 18px;
+  min-height: 18px;
+}
+
+.split-preview {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 8px;
+  background: #f8f8ef;
+}
+
+.split-preview span {
+  color: #697067;
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.split-preview strong {
+  color: #c54033;
+  font-size: 1.25rem;
+}
+
+.expense-form button {
+  min-height: 44px;
+  border: 0;
+  border-radius: 6px;
+  color: #ffffff;
+  background: #245c44;
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.empty-state {
+  color: #697067;
+  line-height: 1.45;
+}
+
+.expense-item {
+  display: grid;
+  gap: 6px;
+  padding: 12px;
+  border: 1px solid #e0e5d8;
+  border-radius: 8px;
+  background: #fbfbf7;
+}
+
+.expense-item div {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.expense-item strong {
+  color: #1c2b22;
+}
+
+.expense-item span,
+.expense-item small {
+  color: #697067;
+}
+
+.expense-item p {
+  color: #c54033;
+  font-size: 1.1rem;
+  font-weight: 800;
+}
