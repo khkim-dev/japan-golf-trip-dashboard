@@ -88,10 +88,7 @@ export const tripSchedule = [
       { time: 'Evening', title: '나고야 도착 및 숙소 이동' },
       { time: 'Night', title: '짐 정리 후 근처 저녁 및 가벼운 관광' },
     ],
-    items: [
-      '숙소 이동 및 짐 정리',
-      '근처에서 저녁 및 가벼운 관광',
-    ],
+    items: ['숙소 이동 및 짐 정리', '근처에서 저녁 및 가벼운 관광'],
   },
   {
     date: '2026-10-07',
@@ -103,10 +100,7 @@ export const tripSchedule = [
       { time: 'PM', title: '오후 자유시간' },
       { time: 'Night', title: '전체 멤버 합류 후 저녁 일정' },
     ],
-    items: [
-      '오전 / 오후 자유시간',
-      '전체 멤버 합류 후 저녁 일정',
-    ],
+    items: ['오전 / 오후 자유시간', '전체 멤버 합류 후 저녁 일정'],
   },
   {
     date: '2026-10-08',
@@ -119,11 +113,7 @@ export const tripSchedule = [
       { time: 'PM', title: '단체 관광' },
       { time: 'Night', title: '저녁 식사 및 다음날 일정 확인' },
     ],
-    items: [
-      '오전 렌트 후 단체골프 1일차',
-      '오후 단체 관광',
-      '저녁 식사 및 다음날 일정 확인',
-    ],
+    items: ['오전 렌트 후 단체골프 1일차', '오후 단체 관광', '저녁 식사 및 다음날 일정 확인'],
   },
   {
     date: '2026-10-09',
@@ -136,11 +126,7 @@ export const tripSchedule = [
       { time: 'PM', title: '단체 관광' },
       { time: 'Night', title: '마지막 밤 일정' },
     ],
-    items: [
-      '오전 단체골프',
-      '오후 단체 관광',
-      '마지막 밤 일정',
-    ],
+    items: ['오전 단체골프', '오후 단체 관광', '마지막 밤 일정'],
   },
   {
     date: '2026-10-10',
@@ -152,10 +138,70 @@ export const tripSchedule = [
       { time: 'PM', title: '마무리 관광 및 공항 이동' },
       { time: 'PM', title: '공항 렌트 반납' },
     ],
-    items: [
-      '오전 휴식',
-      '마무리 관광',
-      '공항 이동 및 렌트 반납',
+    items: ['오전 휴식', '마무리 관광', '공항 이동 및 렌트 반납'],
+  },
+]
+
+export const infographicDays = [
+  {
+    day: '첫째 날',
+    date: '10/6',
+    title: '나고야 도착',
+    summary: '먼저 도착한 4명이 숙소 체크인 후 저녁 일정으로 여행을 시작합니다.',
+    events: [
+      { time: '17:30', type: 'air', title: '원일 · 병화 · 상회 출국' },
+      { time: '17:40', type: 'air', title: '성호 출국' },
+      { time: '19:30', type: 'stay', title: '베셀 인 사카에 스테이션 이동' },
+      { time: 'Night', type: 'food', title: '근처 저녁 및 가벼운 관광' },
+    ],
+  },
+  {
+    day: '둘째 날',
+    date: '10/7',
+    title: '전체 멤버 합류',
+    summary: '오전과 저녁 항공편으로 나머지 멤버가 합류하고 메인 숙소로 이동합니다.',
+    events: [
+      { time: '08:30', type: 'air', title: '성문 출국' },
+      { time: '10:00', type: 'air', title: '성문 나고야 도착' },
+      { time: '17:40', type: 'air', title: '경환 · 종혁 출국' },
+      { time: '19:30', type: 'stay', title: '사파리 리트리트 합류' },
+    ],
+  },
+  {
+    day: '셋째 날',
+    date: '10/8',
+    title: '골프 1일차',
+    summary: '골프5 컨트리 미즈나미 코스에서 첫 라운드를 진행합니다.',
+    events: [
+      { time: '10:20', type: 'golf', title: '경환 · 종혁 · 상회' },
+      { time: '10:28', type: 'golf', title: '성호 · 성문 · 병화 · 원일' },
+      { time: 'PM', type: 'map', title: '단체 관광' },
+      { time: 'Night', type: 'food', title: '저녁 식사 및 다음날 일정 확인' },
+    ],
+  },
+  {
+    day: '넷째 날',
+    date: '10/9',
+    title: '골프 2일차',
+    summary: '하나노키 골프 클럽에서 두 번째 라운드 후 마지막 밤을 보냅니다.',
+    events: [
+      { time: '10:12', type: 'golf', title: '종혁 · 성호 · 병화' },
+      { time: '10:20', type: 'golf', title: '경환 · 상회 · 원일 · 성문' },
+      { time: 'PM', type: 'map', title: '단체 관광' },
+      { time: 'Night', type: 'food', title: '마지막 밤 일정' },
+    ],
+  },
+  {
+    day: '다섯째 날',
+    date: '10/10',
+    title: '귀국 준비',
+    summary: '오전 휴식 후 마무리 관광, 렌트 반납, 공항 이동으로 여행을 마무리합니다.',
+    events: [
+      { time: 'AM', type: 'stay', title: '휴식 및 체크아웃 준비' },
+      { time: 'PM', type: 'map', title: '마무리 관광' },
+      { time: 'PM', type: 'car', title: '공항 이동 및 렌트 반납' },
+      { time: '19:55', type: 'air', title: '원일 · 병화 · 상회 · 성문 입국편' },
+      { time: '20:30', type: 'air', title: '경환 · 종혁 · 성호 입국편' },
     ],
   },
 ]
@@ -165,6 +211,7 @@ export const accommodations = [
     date: '10/6',
     title: '베셀 인 사카에 스테이션',
     subtitle: 'Vessel Inn Sakae Station · ベッセルイン栄駅前',
+    visualType: 'hotel',
     facts: [
       ['일정', '2026-10-06'],
       ['주소', '나고야 나카구 니시키 3-14-13'],
@@ -173,11 +220,12 @@ export const accommodations = [
     mapUrl: 'https://www.google.com/maps/search/?api=1&query=Vessel%20Inn%20Sakae%20Station%20Nagoya',
   },
   {
-    date: '10/7 - 10/10',
+    date: '10/7 - 10/9',
     title: '패밀리 스위트 사파리 리트리트',
     subtitle: 'Family Suite의 Safari Retreat · Airbnb',
+    visualType: 'airbnb',
     facts: [
-      ['일정', '2026-10-07 ~ 2026-10-10'],
+      ['일정', '2026-10-07 ~ 2026-10-09'],
       ['주소', '나고야 아이치현 히가시사쿠라 2-17-15'],
       ['비고', 'Airbnb 예약 숙소'],
     ],
@@ -190,6 +238,7 @@ export const golfRounds = [
     date: '10/8',
     course: '골프5 컨트리 미즈나미 코스',
     courseMeta: 'Golf5 Country Mizunami Course · ゴルフ5カントリーみずなみコース',
+    visualType: 'golf-green',
     facts: [
       ['일정', '2026-10-08'],
       ['주소', '기후현 미즈나미시 카마도초 오보라 2383-1'],
@@ -205,6 +254,7 @@ export const golfRounds = [
     date: '10/9',
     course: '하나노키 골프 클럽',
     courseMeta: 'Hananoki Golf Club',
+    visualType: 'golf-sunset',
     facts: [
       ['일정', '2026-10-09'],
       ['주소', '지도 링크 기준 위치 확인'],

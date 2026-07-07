@@ -1,14 +1,20 @@
 import { useState } from 'react'
 import './App.css'
-import { MemberCard } from './components/MemberCard'
 import { ExpenseEntry } from './components/ExpenseEntry'
-import { ScheduleBoard } from './components/ScheduleBoard'
+import { MemberCard } from './components/MemberCard'
+import { TripInfographic } from './components/TripInfographic'
 import { members } from './data/members'
-import { accommodations, golfRounds, tripSchedule } from './data/schedule'
+import { accommodations, golfRounds, infographicDays, memberTimeline } from './data/schedule'
 
 const tripStartDate = new Date('2026-10-06T00:00:00+09:00')
 
 const sections = [
+  {
+    id: 'overview',
+    label: 'Overview',
+    title: 'Trip Overview',
+    description: '여행의 핵심 정보를 이미지형 인포그래픽 보드로 먼저 확인합니다.',
+  },
   {
     id: 'members',
     label: 'Members',
@@ -16,22 +22,16 @@ const sections = [
     description: '이번 여행을 함께하는 멤버입니다.',
   },
   {
-    id: 'schedule',
-    label: 'Schedule',
-    title: 'Trip Planner',
-    description: '2026년 10월 6일부터 10일까지의 날짜별 일정입니다.',
-  },
-  {
     id: 'bookings',
     label: 'Booking',
     title: 'Booking Summary',
-    description: '숙소, 골프장, 항공 예약 현황을 요약합니다.',
+    description: '숙소와 골프장 예약 현황을 확인합니다.',
   },
   {
     id: 'balance',
-    label: 'Balance',
-    title: 'Fairway Balance Board',
-    description: '여행 지출을 입력하고 분담 멤버를 선택합니다.',
+    label: '19th Hole',
+    title: 'The 19th Hole',
+    description: 'Golf Trip Balance Center',
   },
 ]
 
@@ -44,7 +44,7 @@ function getCountdownDays() {
 }
 
 function App() {
-  const [activeSectionId, setActiveSectionId] = useState('members')
+  const [activeSectionId, setActiveSectionId] = useState('overview')
   const [expenseForm, setExpenseForm] = useState({
     title: '',
     payerId: members[0].id,
@@ -54,6 +54,7 @@ function App() {
   const [expenses, setExpenses] = useState([])
   const countdownDays = getCountdownDays()
   const activeSection = sections.find((section) => section.id === activeSectionId)
+
   function handleExpenseChange(event) {
     const { name, value } = event.target
 
@@ -97,8 +98,10 @@ function App() {
     const expense = {
       id: crypto.randomUUID(),
       title: expenseForm.title.trim(),
+      payerId: payer.id,
       payerName: payer.name,
       amount,
+      sharedMemberIds: sharedMembers.map((member) => member.id),
       sharedMemberNames: sharedMembers.map((member) => member.name),
       splitAmount: Math.round(amount / sharedMembers.length),
     }
@@ -109,6 +112,12 @@ function App() {
       title: '',
       amount: '',
     }))
+  }
+
+  function handleExpenseDelete(expenseId) {
+    setExpenses((currentExpenses) =>
+      currentExpenses.filter((expense) => expense.id !== expenseId),
+    )
   }
 
   return (
@@ -142,7 +151,18 @@ function App() {
 
         <section className="content-panel" aria-live="polite">
           <p className="panel-kicker">Mission 8 Section</p>
-          {activeSectionId === 'members' ? (
+          {activeSectionId === 'overview' ? (
+            <>
+              <h2>{activeSection.title}</h2>
+              <p>{activeSection.description}</p>
+              <TripInfographic
+                accommodations={accommodations}
+                days={infographicDays}
+                golfRounds={golfRounds}
+                memberTimeline={memberTimeline}
+              />
+            </>
+          ) : activeSectionId === 'members' ? (
             <>
               <h2>{activeSection.title}</h2>
               <p>{activeSection.description}</p>
@@ -152,12 +172,6 @@ function App() {
                 ))}
               </div>
             </>
-          ) : activeSectionId === 'schedule' ? (
-            <>
-              <h2>{activeSection.title}</h2>
-              <p>{activeSection.description}</p>
-              <ScheduleBoard schedule={tripSchedule} />
-            </>
           ) : activeSectionId === 'bookings' ? (
             <>
               <h2>{activeSection.title}</h2>
@@ -165,6 +179,7 @@ function App() {
               <div className="booking-grid">
                 {accommodations.map((stay) => (
                   <article className="booking-card" key={`${stay.date}-${stay.title}`}>
+                    <div className={`booking-card-image ${stay.visualType}`} aria-hidden="true" />
                     <span>Stay · {stay.date}</span>
                     <h3>{stay.title}</h3>
                     <p>{stay.subtitle}</p>
@@ -183,6 +198,7 @@ function App() {
                 ))}
                 {golfRounds.map((round) => (
                   <article className="booking-card golf-card" key={`${round.date}-${round.course}`}>
+                    <div className={`booking-card-image ${round.visualType}`} aria-hidden="true" />
                     <span>Golf · {round.date}</span>
                     <h3>{round.course}</h3>
                     <p>{round.courseMeta}</p>
@@ -210,7 +226,7 @@ function App() {
                 <article className="booking-card">
                   <span>Flight</span>
                   <h3>Member Flight Board</h3>
-                  <p>출국/입국 항공편은 Schedule 탭 상단에서 확인합니다.</p>
+                  <p>출국/입국 항공편은 Overview에서 확인합니다.</p>
                 </article>
               </div>
             </>
@@ -223,6 +239,7 @@ function App() {
                 expenses={expenses}
                 members={members}
                 onExpenseChange={handleExpenseChange}
+                onExpenseDelete={handleExpenseDelete}
                 onSharedMemberToggle={handleSharedMemberToggle}
                 onSubmit={handleExpenseSubmit}
               />

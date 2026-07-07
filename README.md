@@ -4,27 +4,53 @@ Fairway Travel Command Board
 
 ## Overview
 
-Japan Golf Trip Dashboard는 친구 7명이 함께 떠나는 일본 골프여행을 준비하고 기록하기 위한 모바일 웹 대시보드입니다.
+Japan Golf Trip Dashboard는 친구 7명이 함께 떠나는 일본 나고야 골프 여행을 준비하고 공유하기 위한 모바일 웹 대시보드입니다.
 
-이 프로젝트는 여행 일정, 항공편, 예약 정보, 비용 정산을 관리하는 도구이면서, 친구들과의 시간을 더 잘 기억하기 위한 작은 디지털 앨범을 목표로 합니다.
+이 프로젝트는 단순한 일정표가 아니라, 여행 정보와 정산 기능을 한곳에 모으고 친구들과의 시간을 더 잘 준비하기 위한 작은 디지털 보드입니다.
 
 ## Current Status
 
-Mission 8까지 완료했습니다.
+Mission 8 기준으로 아래 기능을 구현했습니다.
 
-- Vite + React 프로젝트 생성
-- 분위기 있는 일본 골프여행 Landing 배경 구현
+- Vite + React 프로젝트 구성
+- 모바일 중심 탭 구조
+- 나고야 여행 분위기의 Landing 화면
 - Countdown 표시
-- 7명 멤버 이름 표시
-- Members, Schedule, Booking, Balance 섹션 이동 구조 구현
-- Members 탭에 7명 프로필 카드 표시
-- 프로필 이미지를 `public/images/profiles`에 저장
-- Schedule 탭에 2026-10-06부터 2026-10-10까지 날짜별 일정 표시
-- Schedule 탭 상단에 멤버별 출국/입국 항공 일정 게시
-- Booking 탭에 숙소/골프장/항공 예약 요약 표시
-- Balance 탭에 지출 입력 폼과 비용 목록 표시
+- Members 카드형 UI
+- Overview 이미지형 인포그래픽 보드
+- Booking 숙소/골프장 정보와 지도 링크
+- The 19th Hole 정산 대시보드
 
-아직 최종 정산 계산과 공유 데이터 연동은 구현하지 않습니다.
+## Design Strategy
+
+현재 디자인 방향은 하이브리드 방식입니다.
+
+```text
+Members  -> 카드형 React UI 유지
+Overview -> 이미지형 인포그래픽 자산 + 웹 UI
+Booking  -> 지도 링크와 실제 정보 확인을 위해 React UI 유지
+The 19th Hole -> 입력, 계산, 삭제, 최종 송금 제안이 필요하므로 React UI 유지
+```
+
+Overview는 항공, 일정, 예약 요약을 한 번에 보여주는 핵심 인포그래픽 보드로 사용합니다.
+
+Booking과 The 19th Hole은 사용자가 정보를 확인하거나 입력해야 하므로 기능성과 접근성을 우선합니다.
+
+## Balance Concept
+
+정산 화면은 `The 19th Hole`이라는 이름을 사용합니다.
+
+단순한 N빵 계산기가 아니라, 골프 라운드 후 클럽하우스에서 스코어를 확인하는 듯한 프리미엄 대시보드를 목표로 합니다.
+
+핵심 기능:
+
+- 멤버별 Score Card
+- Total Expense / Transactions / Highest Payer / Average Cost
+- Live Transaction Feed
+- Transaction Delete
+- Who Owes Who 최종 송금 제안
+- 엔화(JPY) 기준 금액 표시
+- React State 기반 v1.0 정산 엔진
 
 ## Data Strategy
 
