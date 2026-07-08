@@ -32,7 +32,7 @@
   color: #ffffff;
   background:
     linear-gradient(180deg, rgba(10, 18, 14, 0.1), rgba(10, 18, 14, 0.76)),
-    url('/images/japan-golf-hero.png') center/cover;
+    url('/japan-golf-trip-dashboard/images/japan-golf-hero.png') center/cover;
 }
 
 .hero-copy {
@@ -194,13 +194,13 @@ h2 {
 .members-showcase {
   background:
     linear-gradient(180deg, rgba(20, 31, 24, 0.04), rgba(20, 31, 24, 0.68)),
-    url('/images/generated/members-board-bg.png') center/cover;
+    url('/japan-golf-trip-dashboard/images/generated/members-board-bg.png') center/cover;
 }
 
 .schedule-showcase {
   background:
     linear-gradient(180deg, rgba(68, 54, 35, 0.04), rgba(68, 54, 35, 0.58)),
-    url('/images/generated/schedule-board-bg.png') center/cover;
+    url('/japan-golf-trip-dashboard/images/generated/schedule-board-bg.png') center/cover;
 }
 
 .members-showcase div,
@@ -244,7 +244,7 @@ h2 {
   color: #ffffff;
   background:
     linear-gradient(180deg, rgba(20, 31, 24, 0.08), rgba(20, 31, 24, 0.86)),
-    url('/images/generated/members-board-bg.png') center/cover;
+    url('/japan-golf-trip-dashboard/images/generated/members-board-bg.png') center/cover;
 }
 
 .team-poster-hero {
@@ -362,7 +362,7 @@ h2 {
   border-radius: 8px;
   background:
     linear-gradient(180deg, rgba(255, 250, 240, 0.72), rgba(255, 250, 240, 0.96)),
-    url('/images/generated/schedule-board-bg.png') center/cover;
+    url('/japan-golf-trip-dashboard/images/generated/schedule-board-bg.png') center/cover;
 }
 
 .route-infographic-heading {
@@ -618,7 +618,7 @@ h2 {
   color: #ffffff;
   background:
     linear-gradient(180deg, rgba(14, 23, 18, 0.06), rgba(14, 23, 18, 0.78)),
-    url('/images/generated/overview-bg.png') center/cover;
+    url('/japan-golf-trip-dashboard/images/generated/overview-bg.png') center/cover;
 }
 
 .overview-hero span {
@@ -703,7 +703,7 @@ h2 {
 .flight-visual-board {
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.92)),
-    url('/images/generated/flight-board-bg.png') center/cover;
+    url('/japan-golf-trip-dashboard/images/generated/flight-board-bg.png') center/cover;
 }
 
 .flight-columns {
@@ -906,28 +906,28 @@ h2 {
 .booking-card-image.hotel {
   background:
     linear-gradient(180deg, rgba(31, 53, 38, 0.02), rgba(31, 53, 38, 0.28)),
-    url('/images/generated/booking-hotel.png') center/cover;
+    url('/japan-golf-trip-dashboard/images/generated/booking-hotel.png') center/cover;
 }
 
 .preview-card-image.airbnb,
 .booking-card-image.airbnb {
   background:
     linear-gradient(180deg, rgba(31, 53, 38, 0.02), rgba(31, 53, 38, 0.16)),
-    url('/images/generated/booking-airbnb.png') center/cover;
+    url('/japan-golf-trip-dashboard/images/generated/booking-airbnb.png') center/cover;
 }
 
 .preview-card-image.golf-green,
 .booking-card-image.golf-green {
   background:
     linear-gradient(180deg, rgba(31, 53, 38, 0.02), rgba(31, 53, 38, 0.2)),
-    url('/images/generated/booking-golf-green.png') center/cover;
+    url('/japan-golf-trip-dashboard/images/generated/booking-golf-green.png') center/cover;
 }
 
 .preview-card-image.golf-sunset,
 .booking-card-image.golf-sunset {
   background:
     linear-gradient(180deg, rgba(31, 53, 38, 0.02), rgba(31, 53, 38, 0.22)),
-    url('/images/generated/booking-golf-sunset.png') center/cover;
+    url('/japan-golf-trip-dashboard/images/generated/booking-golf-sunset.png') center/cover;
 }
 
 .poster-board {
