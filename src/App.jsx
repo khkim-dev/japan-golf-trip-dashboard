@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import { ExpenseEntry } from './components/ExpenseEntry'
 import { MemberCard } from './components/MemberCard'
@@ -7,6 +7,8 @@ import { YardageBook } from './components/YardageBook'
 import { members } from './data/members'
 import { accommodations, golfRounds, infographicDays, memberTimeline } from './data/schedule'
 import { yardageCourses } from './data/yardageBook'
+import { isSupabaseConfigured } from './lib/supabase'
+import { createExpense, deleteExpense, fetchExpenses } from './services/expenses'
 
 const tripStartDate = new Date('2026-10-06T00:00:00+09:00')
 const sectionOrder = ['overview', 'members', 'bookings', 'yardage', 'balance']
@@ -38,9 +40,9 @@ const sections = [
   },
   {
     id: 'balance',
-    label: '19th Hole',
-    title: 'The 19th Hole',
-    description: 'Golf Trip Balance Center',
+    label: 'Balance',
+    title: 'Fairway Balance',
+    description: 'Every Round Ends Fairly.',
   },
 ]
 
@@ -61,9 +63,47 @@ function App() {
     sharedMemberIds: members.map((member) => member.id),
   })
   const [expenses, setExpenses] = useState([])
+  const [expenseError, setExpenseError] = useState('')
+  const [isExpenseLoading, setIsExpenseLoading] = useState(false)
+  const [isExpenseSaving, setIsExpenseSaving] = useState(false)
   const countdownDays = getCountdownDays()
   const activeSection = sections.find((section) => section.id === activeSectionId)
   const orderedSections = sectionOrder.map((sectionId) => sections.find((section) => section.id === sectionId))
+
+  useEffect(() => {
+    let isMounted = true
+
+    async function loadExpenses() {
+      if (!isSupabaseConfigured) {
+        setExpenseError('Supabase 환경변수가 설정되지 않았습니다.')
+        return
+      }
+
+      setIsExpenseLoading(true)
+      setExpenseError('')
+
+      try {
+        const savedExpenses = await fetchExpenses()
+        if (isMounted) {
+          setExpenses(savedExpenses)
+        }
+      } catch (error) {
+        if (isMounted) {
+          setExpenseError(error.message)
+        }
+      } finally {
+        if (isMounted) {
+          setIsExpenseLoading(false)
+        }
+      }
+    }
+
+    loadExpenses()
+
+    return () => {
+      isMounted = false
+    }
+  }, [])
 
   function handleExpenseChange(event) {
     const { name, value } = event.target
@@ -88,11 +128,11 @@ function App() {
     })
   }
 
-  function handleExpenseSubmit(event) {
+  async function handleExpenseSubmit(event) {
     event.preventDefault()
 
     const amount = Number(expenseForm.amount)
-    if (!expenseForm.title.trim() || amount <= 0) {
+    if (!isSupabaseConfigured || !expenseForm.title.trim() || amount <= 0) {
       return
     }
 
@@ -106,7 +146,6 @@ function App() {
     }
 
     const expense = {
-      id: crypto.randomUUID(),
       title: expenseForm.title.trim(),
       payerId: payer.id,
       payerName: payer.name,
@@ -116,18 +155,39 @@ function App() {
       splitAmount: Math.round(amount / sharedMembers.length),
     }
 
-    setExpenses((currentExpenses) => [expense, ...currentExpenses])
-    setExpenseForm((currentForm) => ({
-      ...currentForm,
-      title: '',
-      amount: '',
-    }))
+    setIsExpenseSaving(true)
+    setExpenseError('')
+
+    try {
+      const savedExpense = await createExpense(expense)
+      setExpenses((currentExpenses) => [savedExpense, ...currentExpenses])
+      setExpenseForm((currentForm) => ({
+        ...currentForm,
+        title: '',
+        amount: '',
+      }))
+    } catch (error) {
+      setExpenseError(error.message)
+    } finally {
+      setIsExpenseSaving(false)
+    }
   }
 
-  function handleExpenseDelete(expenseId) {
-    setExpenses((currentExpenses) =>
-      currentExpenses.filter((expense) => expense.id !== expenseId),
-    )
+  async function handleExpenseDelete(expenseId) {
+    if (!isSupabaseConfigured) {
+      return
+    }
+
+    setExpenseError('')
+
+    try {
+      await deleteExpense(expenseId)
+      setExpenses((currentExpenses) =>
+        currentExpenses.filter((expense) => expense.id !== expenseId),
+      )
+    } catch (error) {
+      setExpenseError(error.message)
+    }
   }
 
   return (
@@ -252,7 +312,10 @@ function App() {
               <p>{activeSection.description}</p>
               <ExpenseEntry
                 expenseForm={expenseForm}
+                errorMessage={expenseError}
                 expenses={expenses}
+                isLoading={isExpenseLoading}
+                isSaving={isExpenseSaving}
                 members={members}
                 onExpenseChange={handleExpenseChange}
                 onExpenseDelete={handleExpenseDelete}

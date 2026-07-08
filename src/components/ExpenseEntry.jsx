@@ -15,8 +15,11 @@ function getBalanceClass(balance) {
 }
 
 export function ExpenseEntry({
+  errorMessage,
   expenseForm,
   expenses,
+  isLoading,
+  isSaving,
   members,
   onExpenseChange,
   onExpenseDelete,
@@ -36,10 +39,16 @@ export function ExpenseEntry({
   return (
     <div className="nineteenth-hole">
       <section className="balance-hero" aria-labelledby="balance-title">
-        <span>The 19th Hole</span>
+        <span>Fairway Balance</span>
         <h3 id="balance-title">Golf Trip Balance Center</h3>
-        <p>Where every round settles fairly.</p>
+        <p>Every Round Ends Fairly.</p>
       </section>
+
+      {errorMessage ? (
+        <p className="sync-message error">Supabase 연결 확인: {errorMessage}</p>
+      ) : (
+        <p className="sync-message">{isLoading ? '정산 데이터를 불러오는 중입니다.' : 'Supabase shared data connected.'}</p>
+      )}
 
       <section className="balance-stats" aria-label="Balance statistics">
         <div>
@@ -140,7 +149,9 @@ export function ExpenseEntry({
           <strong>{formatYen(splitAmount)}</strong>
         </div>
 
-        <button type="submit">Add Transaction</button>
+        <button disabled={isSaving} type="submit">
+          {isSaving ? 'Saving...' : 'Add Transaction'}
+        </button>
       </form>
 
       <section className="settlement-board" aria-labelledby="settlement-title">
@@ -177,7 +188,9 @@ export function ExpenseEntry({
           <p>{expenses.length} items</p>
         </div>
 
-        {expenses.length === 0 ? (
+        {isLoading ? (
+          <p className="empty-state">사용 내역을 불러오는 중입니다.</p>
+        ) : expenses.length === 0 ? (
           <p className="empty-state">아직 입력된 지출 항목이 없습니다.</p>
         ) : (
           <div className="receipt-scroll">

@@ -2010,6 +2010,23 @@ h2 {
   font-weight: 800;
 }
 
+.sync-message {
+  padding: 10px 12px;
+  border: 1px solid rgba(117, 194, 143, 0.2);
+  border-radius: 8px;
+  color: #cfd8cd;
+  background: rgba(255, 255, 255, 0.07);
+  font-size: 0.78rem;
+  font-weight: 800;
+  line-height: 1.4;
+}
+
+.sync-message.error {
+  border-color: rgba(255, 109, 109, 0.32);
+  color: #ffb5b5;
+  background: rgba(255, 109, 109, 0.1);
+}
+
 .balance-stats,
 .scorecard-grid {
   display: grid;
@@ -2201,6 +2218,11 @@ h2 {
   font: inherit;
   font-weight: 800;
   cursor: pointer;
+}
+
+.expense-form button:disabled {
+  cursor: wait;
+  opacity: 0.64;
 }
 
 .empty-state {
