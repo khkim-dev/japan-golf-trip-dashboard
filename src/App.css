@@ -114,10 +114,12 @@ h2 {
 .mobile-tabs {
   position: sticky;
   top: 8px;
-  z-index: 1;
+  z-index: 3;
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 6px;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 4px;
+  width: 100%;
+  box-sizing: border-box;
   padding: 6px;
   border: 1px solid rgba(255, 255, 255, 0.66);
   border-radius: 8px;
@@ -128,15 +130,354 @@ h2 {
 .mobile-tabs button {
   min-width: 0;
   min-height: 42px;
-  padding: 8px 4px;
+  padding: 8px 2px;
+  overflow: hidden;
   border: 1px solid transparent;
   border-radius: 6px;
   color: #596156;
   background: transparent;
   font: inherit;
-  font-size: 0.72rem;
+  font-size: clamp(0.56rem, 2.1vw, 0.65rem);
   font-weight: 800;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   cursor: pointer;
+}
+
+.yardage-book {
+  display: grid;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.yardage-hero {
+  min-height: 180px;
+  display: grid;
+  align-content: end;
+  gap: 6px;
+  padding: 18px;
+  overflow: hidden;
+  border-radius: 8px;
+  color: #ffffff;
+  background:
+    linear-gradient(180deg, rgba(16, 28, 22, 0.08), rgba(16, 28, 22, 0.78)),
+    radial-gradient(circle at 80% 18%, rgba(255, 255, 255, 0.42) 0 18px, transparent 19px),
+    linear-gradient(135deg, #80c2d2 0%, #79b86b 48%, #2f694c 100%);
+}
+
+.yardage-hero span,
+.course-summary span,
+.hole-card-title span {
+  color: #f5d37a;
+  font-size: 0.72rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.yardage-hero h3 {
+  margin: 0;
+  color: #ffffff;
+  font-size: 1.65rem;
+  line-height: 1.05;
+}
+
+.yardage-hero p {
+  max-width: 28ch;
+  color: rgba(255, 255, 255, 0.86);
+  font-weight: 800;
+  line-height: 1.45;
+}
+
+.course-switcher {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.course-switcher button {
+  min-height: 50px;
+  display: grid;
+  gap: 2px;
+  padding: 9px;
+  border: 1px solid #d6ddcf;
+  border-radius: 8px;
+  color: #596156;
+  background: #fbfbf7;
+  font: inherit;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.course-switcher button span {
+  color: #c54033;
+  font-size: 0.68rem;
+  font-weight: 900;
+}
+
+.course-switcher button.active {
+  color: #ffffff;
+  background: #245c44;
+}
+
+.course-switcher button.active span {
+  color: #f5d37a;
+}
+
+.course-summary {
+  display: grid;
+  gap: 8px;
+  padding: 12px;
+  border: 1px solid #e0e5d8;
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.course-summary div {
+  display: grid;
+  gap: 3px;
+}
+
+.course-summary span {
+  color: #c54033;
+}
+
+.course-summary strong {
+  color: #1c2b22;
+  line-height: 1.25;
+}
+
+.course-summary p {
+  color: #697067;
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
+.featured-yardage-card {
+  display: grid;
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid rgba(198, 255, 126, 0.22);
+  border-radius: 8px;
+  color: #ffffff;
+  background: linear-gradient(180deg, #081b13 0%, #123725 100%);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.06),
+    0 14px 30px rgba(8, 27, 19, 0.18);
+}
+
+.featured-hole-header {
+  display: grid;
+  gap: 4px;
+}
+
+.featured-hole-header span {
+  color: #c6ff7e;
+  font-size: 0.72rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.featured-hole-header h3 {
+  margin: 0;
+  color: #ffffff;
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.featured-hole-header p {
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 0.82rem;
+  font-weight: 900;
+  line-height: 1.35;
+}
+
+.screen-hole-map {
+  width: 100%;
+  max-height: 560px;
+  aspect-ratio: 5 / 7.8;
+  overflow: hidden;
+  border: 1px solid rgba(198, 255, 126, 0.2);
+  border-radius: 8px;
+  background: #071a12;
+}
+
+.screen-map-placeholder {
+  min-height: 360px;
+  display: grid;
+  place-items: center;
+  gap: 4px;
+  padding: 18px;
+  border: 1px dashed rgba(198, 255, 126, 0.3);
+  border-radius: 8px;
+  color: #ffffff;
+  text-align: center;
+  background:
+    radial-gradient(circle at 50% 20%, rgba(198, 255, 126, 0.14), transparent 35%),
+    #071a12;
+}
+
+.screen-map-placeholder span {
+  color: #c6ff7e;
+  font-size: 0.68rem;
+  font-weight: 900;
+}
+
+.screen-map-placeholder strong {
+  font-size: 1.4rem;
+}
+
+.screen-map-placeholder p {
+  color: rgba(255, 255, 255, 0.72);
+  font-weight: 800;
+}
+
+.featured-hole-memo {
+  display: grid;
+  gap: 4px;
+  padding: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.featured-hole-memo span {
+  color: #f5d37a;
+  font-size: 0.72rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.featured-hole-memo p {
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 0.86rem;
+  font-weight: 800;
+  line-height: 1.45;
+}
+
+.hole-picker {
+  position: sticky;
+  top: 66px;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(9, minmax(0, 1fr));
+  gap: 6px;
+  padding: 8px 0;
+  background: rgba(245, 248, 239, 0.94);
+  backdrop-filter: blur(10px);
+}
+
+.hole-picker button {
+  min-height: 34px;
+  border: 1px solid #d6ddcf;
+  border-radius: 8px;
+  color: #596156;
+  background: #fbfbf7;
+  font: inherit;
+  font-size: 0.75rem;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.hole-picker button.active {
+  border-color: #c6ff7e;
+  color: #071a12;
+  background: #c6ff7e;
+}
+
+.hole-grid {
+  display: grid;
+  gap: 10px;
+}
+
+.hole-card {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr);
+  gap: 10px;
+  padding: 10px;
+  border: 1px solid #dbe4d3;
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.hole-number {
+  display: grid;
+  place-items: center;
+  align-self: start;
+  min-height: 64px;
+  border-radius: 8px;
+  background: linear-gradient(180deg, #255a42 0%, #163629 100%);
+  color: #ffffff;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+}
+
+.hole-number span {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.58rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.hole-number strong {
+  font-size: 1.55rem;
+  line-height: 1;
+}
+
+.course-guide-link {
+  width: fit-content;
+  padding: 8px 10px;
+  border: 1px solid rgba(197, 64, 51, 0.22);
+  border-radius: 8px;
+  color: #c54033;
+  background: #fff7f0;
+  font-size: 0.78rem;
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.hole-card-copy {
+  min-width: 0;
+  display: grid;
+  gap: 8px;
+  align-content: start;
+}
+
+.hole-card-title {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 3px 8px;
+  align-items: baseline;
+}
+
+.hole-card-title span {
+  grid-column: 1 / -1;
+  color: #c54033;
+}
+
+.hole-card-title strong {
+  color: #1c2b22;
+  font-size: 1rem;
+}
+
+.hole-card-title b {
+  color: #245c44;
+  font-size: 1rem;
+}
+
+.hole-meta {
+  width: fit-content;
+  padding: 4px 7px;
+  border-radius: 999px;
+  color: #245c44;
+  background: #eef5e8;
+  font-size: 0.68rem;
+  font-weight: 900;
+}
+
+.hole-card-copy p {
+  color: #5f685d;
+  font-size: 0.82rem;
+  font-weight: 700;
+  line-height: 1.45;
 }
 
 .mobile-tabs button.active {
@@ -560,6 +901,10 @@ h2 {
 @media (max-width: 380px) {
   .profile-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .hole-picker {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
   }
 
   .team-poster-grid {

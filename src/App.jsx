@@ -3,10 +3,13 @@ import './App.css'
 import { ExpenseEntry } from './components/ExpenseEntry'
 import { MemberCard } from './components/MemberCard'
 import { TripInfographic } from './components/TripInfographic'
+import { YardageBook } from './components/YardageBook'
 import { members } from './data/members'
 import { accommodations, golfRounds, infographicDays, memberTimeline } from './data/schedule'
+import { yardageCourses } from './data/yardageBook'
 
 const tripStartDate = new Date('2026-10-06T00:00:00+09:00')
+const sectionOrder = ['overview', 'members', 'bookings', 'yardage', 'balance']
 
 const sections = [
   {
@@ -20,6 +23,12 @@ const sections = [
     label: 'Members',
     title: '7 Friends',
     description: '이번 여행을 함께하는 멤버입니다.',
+  },
+  {
+    id: 'yardage',
+    label: 'Yardage',
+    title: 'Yardage Book',
+    description: '캐디 없는 라운드를 위한 모바일 홀별 코스북입니다.',
   },
   {
     id: 'bookings',
@@ -54,6 +63,7 @@ function App() {
   const [expenses, setExpenses] = useState([])
   const countdownDays = getCountdownDays()
   const activeSection = sections.find((section) => section.id === activeSectionId)
+  const orderedSections = sectionOrder.map((sectionId) => sections.find((section) => section.id === sectionId))
 
   function handleExpenseChange(event) {
     const { name, value } = event.target
@@ -137,7 +147,7 @@ function App() {
         </section>
 
         <nav className="mobile-tabs" aria-label="Dashboard sections">
-          {sections.map((section) => (
+          {orderedSections.map((section) => (
             <button
               key={section.id}
               type="button"
@@ -171,6 +181,12 @@ function App() {
                   <MemberCard key={member.id} member={member} />
                 ))}
               </div>
+            </>
+          ) : activeSectionId === 'yardage' ? (
+            <>
+              <h2>{activeSection.title}</h2>
+              <p>{activeSection.description}</p>
+              <YardageBook courses={yardageCourses} />
             </>
           ) : activeSectionId === 'bookings' ? (
             <>
