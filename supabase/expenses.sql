@@ -30,3 +30,10 @@ create policy "Allow public delete expenses"
 on public.expenses
 for delete
 using (true);
+
+do $$
+begin
+  alter publication supabase_realtime add table public.expenses;
+exception
+  when duplicate_object then null;
+end $$;

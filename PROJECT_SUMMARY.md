@@ -23,10 +23,11 @@ GitHub Pages deployment is active.
 - Supabase project preparation
 - Supabase `expenses` table
 - Supabase expense insert / select / delete validation
+- Fairway Balance Realtime subscription implementation
 
 ## Current Mission
 
-Mission 3. Supabase Connection - validation complete
+Mission 4. Supabase Realtime Sync - implementation complete
 
 ## Architecture
 
@@ -52,9 +53,11 @@ Fairway Balance shared settlement data.
 - `expenses` table is created in Supabase.
 - Public read / insert / delete RLS policies are enabled for MVP usage.
 - Insert / select / delete smoke test passed on 2026-07-09.
+- React app subscribes to Supabase `INSERT` and `DELETE` events for `expenses`.
 
 ## Pending
 
 - Validate insert / delete from the deployed GitHub Pages site.
-- Add Supabase Realtime sync.
+- Run `supabase/expenses.sql` again to add `expenses` to `supabase_realtime` publication.
+- Validate Realtime sync with two browser/mobile sessions.
 - Run multi-device mobile validation.

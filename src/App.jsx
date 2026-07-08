@@ -8,7 +8,12 @@ import { members } from './data/members'
 import { accommodations, golfRounds, infographicDays, memberTimeline } from './data/schedule'
 import { yardageCourses } from './data/yardageBook'
 import { isSupabaseConfigured } from './lib/supabase'
-import { createExpense, deleteExpense, fetchExpenses } from './services/expenses'
+import {
+  createExpense,
+  deleteExpense,
+  fetchExpenses,
+  subscribeToExpenseChanges,
+} from './services/expenses'
 
 const tripStartDate = new Date('2026-10-06T00:00:00+09:00')
 const sectionOrder = ['overview', 'members', 'bookings', 'yardage', 'balance']
@@ -66,6 +71,7 @@ function App() {
   const [expenseError, setExpenseError] = useState('')
   const [isExpenseLoading, setIsExpenseLoading] = useState(false)
   const [isExpenseSaving, setIsExpenseSaving] = useState(false)
+  const [realtimeStatus, setRealtimeStatus] = useState('CONNECTING')
   const countdownDays = getCountdownDays()
   const activeSection = sections.find((section) => section.id === activeSectionId)
   const orderedSections = sectionOrder.map((sectionId) => sections.find((section) => section.id === sectionId))
@@ -100,8 +106,28 @@ function App() {
 
     loadExpenses()
 
+    const unsubscribe = isSupabaseConfigured
+      ? subscribeToExpenseChanges({
+        onDelete: (expenseId) => {
+          setExpenses((currentExpenses) =>
+            currentExpenses.filter((expense) => expense.id !== expenseId),
+          )
+        },
+        onInsert: (expense) => {
+          setExpenses((currentExpenses) => {
+            const alreadyExists = currentExpenses.some((currentExpense) => currentExpense.id === expense.id)
+            if (alreadyExists) return currentExpenses
+
+            return [expense, ...currentExpenses]
+          })
+        },
+        onStatus: setRealtimeStatus,
+      })
+      : undefined
+
     return () => {
       isMounted = false
+      unsubscribe?.()
     }
   }, [])
 
@@ -159,8 +185,7 @@ function App() {
     setExpenseError('')
 
     try {
-      const savedExpense = await createExpense(expense)
-      setExpenses((currentExpenses) => [savedExpense, ...currentExpenses])
+      await createExpense(expense)
       setExpenseForm((currentForm) => ({
         ...currentForm,
         title: '',
@@ -182,9 +207,6 @@ function App() {
 
     try {
       await deleteExpense(expenseId)
-      setExpenses((currentExpenses) =>
-        currentExpenses.filter((expense) => expense.id !== expenseId),
-      )
     } catch (error) {
       setExpenseError(error.message)
     }
@@ -321,6 +343,7 @@ function App() {
                 onExpenseDelete={handleExpenseDelete}
                 onSharedMemberToggle={handleSharedMemberToggle}
                 onSubmit={handleExpenseSubmit}
+                realtimeStatus={realtimeStatus}
               />
             </>
           ) : (

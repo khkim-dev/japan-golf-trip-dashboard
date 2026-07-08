@@ -69,3 +69,29 @@ export async function deleteExpense(expenseId) {
 
   if (error) throw error
 }
+
+export function subscribeToExpenseChanges({ onDelete, onInsert, onStatus }) {
+  const channel = supabase
+    .channel('fairway-balance-expenses')
+    .on(
+      'postgres_changes',
+      { event: 'INSERT', schema: 'public', table: 'expenses' },
+      (payload) => {
+        onInsert(toAppExpense(payload.new))
+      },
+    )
+    .on(
+      'postgres_changes',
+      { event: 'DELETE', schema: 'public', table: 'expenses' },
+      (payload) => {
+        onDelete(payload.old.id)
+      },
+    )
+    .subscribe((status) => {
+      onStatus(status)
+    })
+
+  return () => {
+    supabase.removeChannel(channel)
+  }
+}

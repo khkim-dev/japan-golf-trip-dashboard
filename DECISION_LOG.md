@@ -34,3 +34,4 @@
 | Supabase publishable key를 Vite 환경변수로 사용한다 | 브라우저 기반 정적 앱에서 Supabase Data API를 호출하기 위해서다 |
 | `.env.local`은 로컬 전용으로 유지하고 커밋하지 않는다 | 환경값과 배포 설정을 분리하기 위해서다 |
 | `PROJECT_SUMMARY.md`를 추가한다 | 프로젝트 진행 상태를 새 채팅이나 후속 미션에서 빠르게 복구하기 위해서다 |
+| Fairway Balance는 Supabase Realtime을 구독한다 | 여러 사용자가 같은 정산 화면을 보며 입력/삭제 결과를 자동으로 공유해야 하기 때문이다 |

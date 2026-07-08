@@ -25,6 +25,7 @@ export function ExpenseEntry({
   onExpenseDelete,
   onSharedMemberToggle,
   onSubmit,
+  realtimeStatus,
 }) {
   const selectedMembers = members.filter((member) =>
     expenseForm.sharedMemberIds.includes(member.id),
@@ -47,7 +48,11 @@ export function ExpenseEntry({
       {errorMessage ? (
         <p className="sync-message error">Supabase 연결 확인: {errorMessage}</p>
       ) : (
-        <p className="sync-message">{isLoading ? '정산 데이터를 불러오는 중입니다.' : 'Supabase shared data connected.'}</p>
+        <p className="sync-message">
+          {isLoading
+            ? '정산 데이터를 불러오는 중입니다.'
+            : `Supabase shared data connected. Realtime: ${realtimeStatus}`}
+        </p>
       )}
 
       <section className="balance-stats" aria-label="Balance statistics">
