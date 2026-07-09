@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import './App.css'
 import { ExpenseEntry } from './components/ExpenseEntry'
 import { MemberCard } from './components/MemberCard'
@@ -72,6 +72,7 @@ function App() {
   const [isExpenseLoading, setIsExpenseLoading] = useState(false)
   const [isExpenseSaving, setIsExpenseSaving] = useState(false)
   const [realtimeStatus, setRealtimeStatus] = useState('CONNECTING')
+  const expenseSyncRef = useRef(null)
   const countdownDays = getCountdownDays()
   const activeSection = sections.find((section) => section.id === activeSectionId)
   const orderedSections = sectionOrder.map((sectionId) => sections.find((section) => section.id === sectionId))
@@ -106,7 +107,7 @@ function App() {
 
     loadExpenses()
 
-    const unsubscribe = isSupabaseConfigured
+    const expenseSync = isSupabaseConfigured
       ? subscribeToExpenseChanges({
         onDelete: (expenseId) => {
           setExpenses((currentExpenses) =>
@@ -124,10 +125,12 @@ function App() {
         onStatus: setRealtimeStatus,
       })
       : undefined
+    expenseSyncRef.current = expenseSync
 
     return () => {
       isMounted = false
-      unsubscribe?.()
+      expenseSync?.unsubscribe()
+      expenseSyncRef.current = null
     }
   }, [])
 
@@ -197,6 +200,7 @@ function App() {
         title: '',
         amount: '',
       }))
+      expenseSyncRef.current?.broadcastInsert(savedExpense)
     } catch (error) {
       setExpenseError(error.message)
     } finally {
@@ -216,6 +220,7 @@ function App() {
       setExpenses((currentExpenses) =>
         currentExpenses.filter((expense) => expense.id !== expenseId),
       )
+      expenseSyncRef.current?.broadcastDelete(expenseId)
     } catch (error) {
       setExpenseError(error.message)
     }

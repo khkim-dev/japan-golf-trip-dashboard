@@ -74,6 +74,20 @@ export function subscribeToExpenseChanges({ onDelete, onInsert, onStatus }) {
   const channel = supabase
     .channel('fairway-balance-expenses')
     .on(
+      'broadcast',
+      { event: 'expense_inserted' },
+      (payload) => {
+        onInsert(payload.payload.expense)
+      },
+    )
+    .on(
+      'broadcast',
+      { event: 'expense_deleted' },
+      (payload) => {
+        onDelete(payload.payload.expenseId)
+      },
+    )
+    .on(
       'postgres_changes',
       { event: 'INSERT', schema: 'public', table: 'expenses' },
       (payload) => {
@@ -91,7 +105,21 @@ export function subscribeToExpenseChanges({ onDelete, onInsert, onStatus }) {
       onStatus(status)
     })
 
-  return () => {
-    supabase.removeChannel(channel)
+  return {
+    broadcastDelete: (expenseId) =>
+      channel.send({
+        event: 'expense_deleted',
+        payload: { expenseId },
+        type: 'broadcast',
+      }),
+    broadcastInsert: (expense) =>
+      channel.send({
+        event: 'expense_inserted',
+        payload: { expense },
+        type: 'broadcast',
+      }),
+    unsubscribe: () => {
+      supabase.removeChannel(channel)
+    },
   }
 }

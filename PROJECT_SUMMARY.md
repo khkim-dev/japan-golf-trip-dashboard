@@ -24,6 +24,7 @@ GitHub Pages deployment is active.
 - Supabase `expenses` table
 - Supabase expense insert / select / delete validation
 - Fairway Balance Realtime subscription implementation
+- Fairway Balance Broadcast sync fallback
 
 ## Current Mission
 
@@ -42,6 +43,7 @@ Fairway Balance shared settlement data.
 - Balance feature name changed from The 19th Hole to Fairway Balance.
 - Expense calculation logic stays in `src/utils/settlement.js`.
 - Supabase handles shared expense storage.
+- Fairway Balance uses Supabase Broadcast as a realtime fallback between open clients.
 - Yardage Book uses original SVG-style course maps instead of copied course images.
 
 ## Supabase
@@ -54,10 +56,11 @@ Fairway Balance shared settlement data.
 - Public read / insert / delete RLS policies are enabled for MVP usage.
 - Insert / select / delete smoke test passed on 2026-07-09.
 - React app subscribes to Supabase `INSERT` and `DELETE` events for `expenses`.
+- Supabase Postgres Changes subscribed but did not emit events during validation, so Broadcast is also used for app-originated insert / delete sync.
+- Broadcast client-to-client validation passed on 2026-07-10.
 
 ## Pending
 
-- Validate insert / delete from the deployed GitHub Pages site.
-- Run `supabase/expenses.sql` again to add `expenses` to `supabase_realtime` publication.
-- Validate Realtime sync with two browser/mobile sessions.
+- Validate Broadcast sync from the deployed GitHub Pages site with two browser/mobile sessions.
+- Run `supabase/expenses.sql` again or confirm Supabase Realtime table publication if Postgres Changes events are still needed later.
 - Run multi-device mobile validation.
