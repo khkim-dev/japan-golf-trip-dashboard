@@ -185,7 +185,13 @@ function App() {
     setExpenseError('')
 
     try {
-      await createExpense(expense)
+      const savedExpense = await createExpense(expense)
+      setExpenses((currentExpenses) => {
+        const alreadyExists = currentExpenses.some((currentExpense) => currentExpense.id === savedExpense.id)
+        if (alreadyExists) return currentExpenses
+
+        return [savedExpense, ...currentExpenses]
+      })
       setExpenseForm((currentForm) => ({
         ...currentForm,
         title: '',
@@ -207,6 +213,9 @@ function App() {
 
     try {
       await deleteExpense(expenseId)
+      setExpenses((currentExpenses) =>
+        currentExpenses.filter((expense) => expense.id !== expenseId),
+      )
     } catch (error) {
       setExpenseError(error.message)
     }
