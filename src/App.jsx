@@ -256,7 +256,6 @@ function App() {
         </nav>
 
         <section className="content-panel" aria-live="polite">
-          <p className="panel-kicker">Mission 8 Section</p>
           {activeSectionId === 'overview' ? (
             <>
               <h2>{activeSection.title}</h2>
@@ -335,11 +334,6 @@ function App() {
                     </div>
                   </article>
                 ))}
-                <article className="booking-card">
-                  <span>Flight</span>
-                  <h3>Member Flight Board</h3>
-                  <p>출국/입국 항공편은 Overview에서 확인합니다.</p>
-                </article>
               </div>
             </>
           ) : activeSectionId === 'balance' ? (

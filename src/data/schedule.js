@@ -253,11 +253,11 @@ export const golfRounds = [
   {
     date: '10/9',
     course: '하나노키 골프 클럽',
-    courseMeta: 'Hananoki Golf Club',
+    courseMeta: 'Hananoki Golf Club · 花の木ゴルフクラブ',
     visualType: 'golf-sunset',
     facts: [
       ['일정', '2026-10-09'],
-      ['주소', '지도 링크 기준 위치 확인'],
+      ['주소', '기후현 미즈나미시 히요시초 8675-1'],
       ['비고', '오전 라운드'],
     ],
     mapUrl: 'https://maps.app.goo.gl/nTBBoBwvNxQozat46?g_st=akt',

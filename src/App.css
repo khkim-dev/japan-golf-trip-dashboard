@@ -1084,7 +1084,7 @@ h2 {
 
 .flight-group-row {
   display: grid;
-  grid-template-columns: 118px minmax(0, 1fr);
+  grid-template-columns: 132px minmax(0, 1fr);
   gap: 8px;
   align-items: center;
   padding: 8px;
@@ -1095,6 +1095,7 @@ h2 {
 .flight-group-row b {
   color: #c54033;
   font-size: 0.76rem;
+  white-space: nowrap;
 }
 
 .flight-group-row p {
