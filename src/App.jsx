@@ -232,8 +232,11 @@ function App() {
         <section className="landing" aria-labelledby="project-title">
           <div className="hero-copy">
             <p className="eyebrow">Fairway Travel Command Board</p>
-            <h1 id="project-title">Japan Golf Trip 2026</h1>
-            <p className="trip-period">Nagoya · October 6 - October 10</p>
+            <h1 id="project-title">FAIRWAY</h1>
+            <p className="trip-period">
+              <strong>Japan Golf Tour 2026</strong>
+              <span>October 6–10, 2026</span>
+            </p>
           </div>
 
           <div className="countdown-panel" aria-label="Trip countdown">
