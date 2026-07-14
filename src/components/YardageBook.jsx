@@ -17,6 +17,16 @@ function formatTotal(course) {
 }
 
 function ScreenGolfHoleMap({ hole }) {
+  if (hole.mapImage) {
+    return (
+      <img
+        className="screen-hole-map screen-hole-map-image"
+        src={hole.mapImage}
+        alt={`Hole ${hole.hole} illustrated course map`}
+      />
+    )
+  }
+
   const map = hole.map
 
   if (!map) {
@@ -102,6 +112,54 @@ function ScreenGolfHoleMap({ hole }) {
   )
 }
 
+function PremiumHolePreview({ course, hole }) {
+  const greenStrategy = hole.memo
+
+  return (
+    <section className="premium-yardage-card" aria-label="Premium selected hole preview">
+      <div className="premium-yardage-title">
+        <span>Yardage Book</span>
+        <strong>{course.shortName}</strong>
+      </div>
+
+      <div className="premium-yardage-stats" aria-label="Selected hole stats">
+        <div>
+          <span>Hole</span>
+          <strong>{formatNumber(hole.hole)}</strong>
+        </div>
+        <div>
+          <span>Par</span>
+          <strong>{formatNumber(hole.par)}</strong>
+        </div>
+        <div>
+          <span>Yard</span>
+          <strong>{formatNumber(hole.distanceYd)}</strong>
+        </div>
+        <div>
+          <span>Meter</span>
+          <strong>{formatNumber(hole.distanceM)}</strong>
+        </div>
+        <div>
+          <span>HDCP</span>
+          <strong>{formatNumber(hole.hdcp)}</strong>
+        </div>
+      </div>
+
+      <div className="premium-yardage-map">
+        <img src={hole.mapImage} alt={`Hole ${hole.hole} premium course map`} />
+      </div>
+
+      <div className="premium-green-panel">
+        <div className="premium-green-mini">
+          <span>Green Strategy</span>
+          <strong>Center first</strong>
+          <p>{greenStrategy}</p>
+        </div>
+      </div>
+    </section>
+  )
+}
+
 export function YardageBook({ courses }) {
   const [selectedCourseId, setSelectedCourseId] = useState(courses[0]?.id)
   const [selectedHoleNumber, setSelectedHoleNumber] = useState(1)
@@ -170,7 +228,12 @@ export function YardageBook({ courses }) {
         ))}
       </div>
 
-      <section className="featured-yardage-card" aria-label="Selected hole preview">
+      {selectedHole.mapImage && <PremiumHolePreview course={selectedCourse} hole={selectedHole} />}
+
+      <section
+        className={selectedHole.mapImage ? 'featured-yardage-card yardage-fallback-hidden' : 'featured-yardage-card'}
+        aria-label="Selected hole preview"
+      >
         <div className="featured-hole-header">
           <span>{getNineLabel(selectedCourse, selectedHole.hole)} Course</span>
           <h3>Hole {selectedHole.hole}</h3>
@@ -188,3 +251,4 @@ export function YardageBook({ courses }) {
     </div>
   )
 }
+

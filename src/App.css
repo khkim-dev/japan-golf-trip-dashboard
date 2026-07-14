@@ -319,6 +319,136 @@ h2 {
     0 14px 30px rgba(8, 27, 19, 0.18);
 }
 
+.yardage-fallback-hidden {
+  display: none;
+}
+
+.premium-yardage-card {
+  overflow: hidden;
+  border: 1px solid rgba(245, 211, 122, 0.34);
+  border-radius: 8px;
+  color: #ffffff;
+  background: #07100d;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.06),
+    0 18px 38px rgba(8, 20, 14, 0.28);
+}
+
+.premium-yardage-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background: linear-gradient(180deg, #111815 0%, #080d0b 100%);
+}
+
+.premium-yardage-title span {
+  color: #d8bd72;
+  font-size: 0.9rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.premium-yardage-title strong {
+  color: rgba(255, 255, 255, 0.76);
+  font-size: 0.74rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.premium-yardage-stats {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  background: linear-gradient(180deg, #111815 0%, #090f0d 100%);
+}
+
+.premium-yardage-stats div {
+  min-width: 0;
+  display: grid;
+  gap: 3px;
+  justify-items: center;
+  padding: 11px 3px 12px;
+  border-right: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.premium-yardage-stats div:last-child {
+  border-right: 0;
+}
+
+.premium-yardage-stats span {
+  color: #d8bd72;
+  font-size: 0.58rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.premium-yardage-stats strong {
+  color: #ffffff;
+  font-size: clamp(1.12rem, 6.2vw, 2.05rem);
+  font-weight: 900;
+  line-height: 0.95;
+  text-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+}
+
+.premium-yardage-map {
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, rgba(3, 8, 6, 0.18), rgba(3, 8, 6, 0.34)),
+    #08140e;
+}
+
+.premium-yardage-map img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.premium-green-panel {
+  display: grid;
+  gap: 0;
+  padding: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  background:
+    radial-gradient(circle at 80% 20%, rgba(216, 189, 114, 0.1), transparent 28%),
+    linear-gradient(180deg, #101815 0%, #070d0b 100%);
+}
+
+.premium-green-panel span {
+  color: #d8bd72;
+  font-size: 0.7rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.premium-green-panel p {
+  margin-top: 6px;
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 0.84rem;
+  font-weight: 800;
+  line-height: 1.45;
+}
+
+.premium-green-mini {
+  padding: 12px;
+  border: 1px solid rgba(245, 211, 122, 0.2);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.premium-green-mini strong {
+  display: block;
+  margin-top: 6px;
+  color: #ffffff;
+  font-size: 1rem;
+}
+
 .featured-hole-header {
   display: grid;
   gap: 4px;
@@ -353,6 +483,14 @@ h2 {
   border: 1px solid rgba(198, 255, 126, 0.2);
   border-radius: 8px;
   background: #071a12;
+}
+
+.screen-hole-map-image {
+  display: block;
+  height: auto;
+  max-height: none;
+  aspect-ratio: auto;
+  object-fit: contain;
 }
 
 .screen-map-placeholder {
