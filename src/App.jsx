@@ -262,7 +262,6 @@ function App() {
           {activeSectionId === 'overview' ? (
             <>
               <h2>{activeSection.title}</h2>
-              <p>{activeSection.description}</p>
               <TripInfographic
                 accommodations={accommodations}
                 days={infographicDays}
@@ -273,7 +272,6 @@ function App() {
           ) : activeSectionId === 'members' ? (
             <>
               <h2>{activeSection.title}</h2>
-              <p>{activeSection.description}</p>
               <div className="profile-grid">
                 {members.map((member) => (
                   <MemberCard key={member.id} member={member} />
@@ -283,13 +281,11 @@ function App() {
           ) : activeSectionId === 'yardage' ? (
             <>
               <h2>{activeSection.title}</h2>
-              <p>{activeSection.description}</p>
               <YardageBook courses={yardageCourses} />
             </>
           ) : activeSectionId === 'bookings' ? (
             <>
               <h2>{activeSection.title}</h2>
-              <p>{activeSection.description}</p>
               <div className="booking-grid">
                 {accommodations.map((stay) => (
                   <article className="booking-card" key={`${stay.date}-${stay.title}`}>
@@ -342,7 +338,6 @@ function App() {
           ) : activeSectionId === 'balance' ? (
             <>
               <h2>{activeSection.title}</h2>
-              <p>{activeSection.description}</p>
               <ExpenseEntry
                 expenseForm={expenseForm}
                 errorMessage={expenseError}

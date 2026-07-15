@@ -689,6 +689,12 @@ h2 {
   padding: 20px;
 }
 
+.overview-hero,
+.yardage-hero,
+.balance-hero {
+  display: none;
+}
+
 .panel-kicker {
   color: #c54033;
   font-size: 0.76rem;
@@ -1217,6 +1223,7 @@ h2 {
   border: 1px solid #e0e5d8;
   border-radius: 8px;
   background: #ffffff;
+  overflow: hidden;
 }
 
 .visual-board-heading {
@@ -1239,8 +1246,9 @@ h2 {
 
 .flight-visual-board {
   background:
+    linear-gradient(180deg, rgba(248, 252, 255, 0.98) 0%, rgba(248, 252, 255, 0.9) 42px, rgba(255, 255, 255, 0) 86px),
     linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.92)),
-    url('/japan-golf-trip-dashboard/images/generated/flight-board-bg.png') center/cover;
+    url('/japan-golf-trip-dashboard/images/generated/flight-board-bg.png') center 58% / cover;
 }
 
 .flight-columns {

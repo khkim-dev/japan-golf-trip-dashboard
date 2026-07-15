@@ -21,12 +21,6 @@ export function TripInfographic({ accommodations, days, golfRounds, memberTimeli
 
   return (
     <div className="overview-board">
-      <section className="overview-hero" aria-labelledby="overview-title">
-        <span>2026 Nagoya Golf Travel</span>
-        <h3 id="overview-title">Japan Golf Trip 2026</h3>
-        <p>7명의 친구가 함께 보는 모바일 여행 커맨드 보드</p>
-      </section>
-
       <section className="overview-stats" aria-label="Trip summary">
         <div>
           <span>Period</span>
