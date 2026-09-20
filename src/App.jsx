@@ -6,7 +6,7 @@ import { accommodations, golfRounds, infographicDays, travelerTimeline } from '.
 import { yardageCourses } from './data/yardageBook'
 
 const tripStartDate = new Date('2026-10-06T00:00:00+09:00')
-const sectionOrder = ['overview', 'bookings', 'yardage']
+const sectionOrder = ['overview', 'bookings', 'yardage', 'coming-soon']
 
 const sections = [
   {
@@ -26,6 +26,13 @@ const sections = [
     label: 'Booking',
     title: 'Booking Summary',
     description: '숙소와 골프장 예약 현황을 확인합니다.',
+  },
+  {
+    id: 'coming-soon',
+    label: '준비 중',
+    title: '새로운 기능 준비 중',
+    description: '다음 메뉴를 준비하고 있습니다.',
+    disabled: true,
   },
 ]
 
@@ -68,6 +75,7 @@ function App() {
               key={section.id}
               type="button"
               className={section.id === activeSectionId ? 'active' : ''}
+              disabled={section.disabled}
               onClick={() => setActiveSectionId(section.id)}
             >
               {section.label}
