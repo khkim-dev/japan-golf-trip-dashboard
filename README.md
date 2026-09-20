@@ -4,9 +4,9 @@ Fairway Travel Command Board
 
 ## Overview
 
-Japan Golf Trip Dashboard는 친구 7명이 함께 떠나는 일본 나고야 골프 여행을 준비하고 공유하기 위한 모바일 웹 대시보드입니다.
+Japan Golf Trip Dashboard는 친구 6명이 함께 떠나는 일본 나고야 골프 여행을 준비하고 공유하기 위한 모바일 웹 대시보드입니다.
 
-이 프로젝트는 단순한 일정표가 아니라, 여행 정보와 정산 기능을 한곳에 모으고 친구들과의 시간을 더 잘 준비하기 위한 작은 디지털 보드입니다.
+이 프로젝트는 여행 정보와 골프 준비 정보를 한곳에 모아 친구들과 공유하기 위한 작은 디지털 보드입니다.
 
 ## Current Status
 
@@ -16,12 +16,9 @@ Japan Golf Trip Dashboard는 친구 7명이 함께 떠나는 일본 나고야 �
 - 모바일 중심 탭 구조
 - 나고야 여행 분위기의 Landing 화면
 - Countdown 표시
-- Members 카드형 UI
 - Yardage Book 모바일 코스북
 - Overview 이미지형 인포그래픽 보드
 - Booking 숙소/골프장 정보와 지도 링크
-- Fairway Balance 정산 대시보드
-- Supabase shared expense data 연결 준비
 
 ## Design Strategy
 
@@ -29,15 +26,13 @@ Japan Golf Trip Dashboard는 친구 7명이 함께 떠나는 일본 나고야 �
 
 ```text
 Overview      -> 이미지형 인포그래픽 자산 + 웹 UI
-Members       -> 카드형 React UI 유지
 Yardage Book  -> 캐디 없는 라운드를 위한 홀별 코스북
 Booking       -> 지도 링크와 실제 정보 확인을 위해 React UI 유지
-Fairway Balance -> 입력, 계산, 삭제, 최종 송금 제안이 필요하므로 React UI 유지
 ```
 
 Overview는 항공, 일정, 예약 요약을 한 번에 보여주는 핵심 인포그래픽 보드로 사용합니다.
 
-Booking과 Fairway Balance는 사용자가 정보를 확인하거나 입력해야 하므로 기능성과 접근성을 우선합니다.
+Overview와 Booking은 사용자가 여행 정보를 빠르게 확인할 수 있도록 기능성과 접근성을 우선합니다.
 
 ## Yardage Book
 
@@ -54,39 +49,12 @@ v1.0 범위:
 
 현재 홀별 거리와 메모는 코스북 초안이며, 라운드 전 공식 스코어카드 기준으로 최종 확인합니다.
 
-## Balance Concept
-
-정산 화면은 `Fairway Balance`라는 이름을 사용합니다.
-
-단순한 N빵 계산기가 아니라, 골프 라운드 후 클럽하우스에서 스코어를 확인하는 듯한 프리미엄 대시보드를 목표로 합니다.
-
-핵심 기능:
-
-- 멤버별 Score Card
-- Total Expense / Transactions / Highest Payer / Average Cost
-- Live Transaction Feed
-- Transaction Delete
-- Who Owes Who 최종 송금 제안
-- 엔화(JPY) 기준 금액 표시
-- Supabase 기반 공유 지출 데이터
-- React 기반 정산 엔진
-
 ## Data Strategy
 
-이 앱은 카카오톡 단체방에 공유되는 현황판이므로, `localStorage`를 핵심 저장 방식으로 사용하지 않습니다.
+현재 앱은 별도 백엔드 없이 GitHub Pages에서 여행 정보를 읽기 전용 현황판으로 제공합니다.
 
 ```text
-v1.0: GitHub Pages 배포
-v1.1: Supabase shared expense data
-v1.2: Supabase Realtime sync
-```
-
-현재 Fairway Balance는 Supabase `expenses` 테이블을 통해 공유 지출 데이터를 저장하는 방향으로 전환 중입니다.
-
-Supabase SQL:
-
-```text
-supabase/expenses.sql
+GitHub Pages -> React static dashboard
 ```
 
 ## Deploy

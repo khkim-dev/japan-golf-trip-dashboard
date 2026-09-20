@@ -7,15 +7,15 @@ const eventLabels = {
   car: '이동',
 }
 
-export function TripInfographic({ accommodations, days, golfRounds, memberTimeline }) {
+export function TripInfographic({ accommodations, days, golfRounds, travelerTimeline }) {
   const outboundGroups = [
-    { time: '10/6 17:30 → 18:55', members: ['원일', '병화', '상회'] },
+    { time: '10/6 17:30 → 18:55', members: ['원일', '상회'] },
     { time: '10/6 17:40 → 19:30', members: ['성호'] },
     { time: '10/7 08:30 → 10:00', members: ['성문'] },
     { time: '10/7 17:40 → 19:30', members: ['경환', '종혁'] },
   ]
   const inboundGroups = [
-    { time: '10/10 19:55 → 21:30', members: ['원일', '병화', '상회', '성문'] },
+    { time: '10/10 19:55 → 21:30', members: ['원일', '상회', '성문'] },
     { time: '10/10 20:30 → 22:15', members: ['성호', '경환', '종혁'] },
   ]
 
@@ -27,8 +27,8 @@ export function TripInfographic({ accommodations, days, golfRounds, memberTimeli
           <strong>10/6 - 10/10</strong>
         </div>
         <div>
-          <span>Members</span>
-          <strong>{memberTimeline.length} Friends</strong>
+          <span>Group</span>
+          <strong>{travelerTimeline.length} Friends</strong>
         </div>
         <div>
           <span>Rounds</span>

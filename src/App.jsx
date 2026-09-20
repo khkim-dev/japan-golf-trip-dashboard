@@ -1,22 +1,12 @@
-import { useEffect, useRef, useState } from 'react'
+import { useState } from 'react'
 import './App.css'
-import { ExpenseEntry } from './components/ExpenseEntry'
-import { MemberCard } from './components/MemberCard'
 import { TripInfographic } from './components/TripInfographic'
 import { YardageBook } from './components/YardageBook'
-import { members } from './data/members'
-import { accommodations, golfRounds, infographicDays, memberTimeline } from './data/schedule'
+import { accommodations, golfRounds, infographicDays, travelerTimeline } from './data/schedule'
 import { yardageCourses } from './data/yardageBook'
-import { isSupabaseConfigured } from './lib/supabase'
-import {
-  createExpense,
-  deleteExpense,
-  fetchExpenses,
-  subscribeToExpenseChanges,
-} from './services/expenses'
 
 const tripStartDate = new Date('2026-10-06T00:00:00+09:00')
-const sectionOrder = ['overview', 'members', 'bookings', 'yardage', 'balance']
+const sectionOrder = ['overview', 'bookings', 'yardage']
 
 const sections = [
   {
@@ -24,12 +14,6 @@ const sections = [
     label: 'Overview',
     title: 'Trip Overview',
     description: '여행의 핵심 정보를 이미지형 인포그래픽 보드로 먼저 확인합니다.',
-  },
-  {
-    id: 'members',
-    label: 'Members',
-    title: '7 Friends',
-    description: '이번 여행을 함께하는 멤버입니다.',
   },
   {
     id: 'yardage',
@@ -43,12 +27,6 @@ const sections = [
     title: 'Booking Summary',
     description: '숙소와 골프장 예약 현황을 확인합니다.',
   },
-  {
-    id: 'balance',
-    label: 'Balance',
-    title: 'Fairway Balance',
-    description: 'Every Round Ends Fairly.',
-  },
 ]
 
 function getCountdownDays() {
@@ -61,170 +39,9 @@ function getCountdownDays() {
 
 function App() {
   const [activeSectionId, setActiveSectionId] = useState('overview')
-  const [expenseForm, setExpenseForm] = useState({
-    title: '',
-    payerId: members[0].id,
-    amount: '',
-    sharedMemberIds: members.map((member) => member.id),
-  })
-  const [expenses, setExpenses] = useState([])
-  const [expenseError, setExpenseError] = useState('')
-  const [isExpenseLoading, setIsExpenseLoading] = useState(false)
-  const [isExpenseSaving, setIsExpenseSaving] = useState(false)
-  const [realtimeStatus, setRealtimeStatus] = useState('CONNECTING')
-  const expenseSyncRef = useRef(null)
   const countdownDays = getCountdownDays()
   const activeSection = sections.find((section) => section.id === activeSectionId)
   const orderedSections = sectionOrder.map((sectionId) => sections.find((section) => section.id === sectionId))
-
-  useEffect(() => {
-    let isMounted = true
-
-    async function loadExpenses() {
-      if (!isSupabaseConfigured) {
-        setExpenseError('Supabase 환경변수가 설정되지 않았습니다.')
-        return
-      }
-
-      setIsExpenseLoading(true)
-      setExpenseError('')
-
-      try {
-        const savedExpenses = await fetchExpenses()
-        if (isMounted) {
-          setExpenses(savedExpenses)
-        }
-      } catch (error) {
-        if (isMounted) {
-          setExpenseError(error.message)
-        }
-      } finally {
-        if (isMounted) {
-          setIsExpenseLoading(false)
-        }
-      }
-    }
-
-    loadExpenses()
-
-    const expenseSync = isSupabaseConfigured
-      ? subscribeToExpenseChanges({
-        onDelete: (expenseId) => {
-          setExpenses((currentExpenses) =>
-            currentExpenses.filter((expense) => expense.id !== expenseId),
-          )
-        },
-        onInsert: (expense) => {
-          setExpenses((currentExpenses) => {
-            const alreadyExists = currentExpenses.some((currentExpense) => currentExpense.id === expense.id)
-            if (alreadyExists) return currentExpenses
-
-            return [expense, ...currentExpenses]
-          })
-        },
-        onStatus: setRealtimeStatus,
-      })
-      : undefined
-    expenseSyncRef.current = expenseSync
-
-    return () => {
-      isMounted = false
-      expenseSync?.unsubscribe()
-      expenseSyncRef.current = null
-    }
-  }, [])
-
-  function handleExpenseChange(event) {
-    const { name, value } = event.target
-
-    setExpenseForm((currentForm) => ({
-      ...currentForm,
-      [name]: value,
-    }))
-  }
-
-  function handleSharedMemberToggle(memberId) {
-    setExpenseForm((currentForm) => {
-      const isSelected = currentForm.sharedMemberIds.includes(memberId)
-      const sharedMemberIds = isSelected
-        ? currentForm.sharedMemberIds.filter((id) => id !== memberId)
-        : [...currentForm.sharedMemberIds, memberId]
-
-      return {
-        ...currentForm,
-        sharedMemberIds,
-      }
-    })
-  }
-
-  async function handleExpenseSubmit(event) {
-    event.preventDefault()
-
-    const amount = Number(expenseForm.amount)
-    if (!isSupabaseConfigured || !expenseForm.title.trim() || amount <= 0) {
-      return
-    }
-
-    const payer = members.find((member) => member.id === expenseForm.payerId)
-    const sharedMembers = members.filter((member) =>
-      expenseForm.sharedMemberIds.includes(member.id),
-    )
-
-    if (sharedMembers.length === 0) {
-      return
-    }
-
-    const expense = {
-      title: expenseForm.title.trim(),
-      payerId: payer.id,
-      payerName: payer.name,
-      amount,
-      sharedMemberIds: sharedMembers.map((member) => member.id),
-      sharedMemberNames: sharedMembers.map((member) => member.name),
-      splitAmount: Math.round(amount / sharedMembers.length),
-    }
-
-    setIsExpenseSaving(true)
-    setExpenseError('')
-
-    try {
-      const savedExpense = await createExpense(expense)
-      setExpenses((currentExpenses) => {
-        const alreadyExists = currentExpenses.some((currentExpense) => currentExpense.id === savedExpense.id)
-        if (alreadyExists) return currentExpenses
-
-        return [savedExpense, ...currentExpenses]
-      })
-      setExpenseForm((currentForm) => ({
-        ...currentForm,
-        title: '',
-        amount: '',
-      }))
-      expenseSyncRef.current?.broadcastInsert(savedExpense)
-    } catch (error) {
-      setExpenseError(error.message)
-    } finally {
-      setIsExpenseSaving(false)
-    }
-  }
-
-  async function handleExpenseDelete(expenseId) {
-    if (!isSupabaseConfigured) {
-      return
-    }
-
-    setExpenseError('')
-
-    try {
-      await deleteExpense(expenseId)
-      setExpenses((currentExpenses) =>
-        currentExpenses.filter((expense) => expense.id !== expenseId),
-      )
-      expenseSyncRef.current?.broadcastDelete(expenseId)
-    } catch (error) {
-      setExpenseError(error.message)
-    }
-  }
 
   return (
     <main className="app">
@@ -266,17 +83,8 @@ function App() {
                 accommodations={accommodations}
                 days={infographicDays}
                 golfRounds={golfRounds}
-                memberTimeline={memberTimeline}
+                travelerTimeline={travelerTimeline}
               />
-            </>
-          ) : activeSectionId === 'members' ? (
-            <>
-              <h2>{activeSection.title}</h2>
-              <div className="profile-grid">
-                {members.map((member) => (
-                  <MemberCard key={member.id} member={member} />
-                ))}
-              </div>
             </>
           ) : activeSectionId === 'yardage' ? (
             <>
@@ -334,23 +142,6 @@ function App() {
                   </article>
                 ))}
               </div>
-            </>
-          ) : activeSectionId === 'balance' ? (
-            <>
-              <h2>{activeSection.title}</h2>
-              <ExpenseEntry
-                expenseForm={expenseForm}
-                errorMessage={expenseError}
-                expenses={expenses}
-                isLoading={isExpenseLoading}
-                isSaving={isExpenseSaving}
-                members={members}
-                onExpenseChange={handleExpenseChange}
-                onExpenseDelete={handleExpenseDelete}
-                onSharedMemberToggle={handleSharedMemberToggle}
-                onSubmit={handleExpenseSubmit}
-                realtimeStatus={realtimeStatus}
-              />
             </>
           ) : (
             <>
