@@ -170,7 +170,7 @@ h2 {
   top: 8px;
   z-index: 3;
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 4px;
   width: 100%;
   box-sizing: border-box;
@@ -361,7 +361,7 @@ h2 {
 
 .premium-yardage-stats {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   border-bottom: 1px solid rgba(255, 255, 255, 0.12);
   background: linear-gradient(180deg, #111815 0%, #090f0d 100%);
 }
