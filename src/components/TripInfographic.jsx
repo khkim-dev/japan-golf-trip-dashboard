@@ -1,13 +1,4 @@
-const eventLabels = {
-  air: '항공',
-  stay: '숙소',
-  food: '식사',
-  golf: '골프',
-  map: '관광',
-  car: '이동',
-}
-
-export function TripInfographic({ accommodations, days, golfRounds, travelerTimeline }) {
+export function TripInfographic({ accommodations, golfRounds, travelerTimeline }) {
   const outboundGroups = [
     { time: '10/6 17:30 → 18:55', members: ['원일', '상회'] },
     { time: '10/6 17:40 → 19:30', members: ['성호'] },
@@ -44,34 +35,6 @@ export function TripInfographic({ accommodations, days, golfRounds, travelerTime
         <div className="flight-columns">
           <FlightGroup title="출국" route="Korea → Nagoya" groups={outboundGroups} />
           <FlightGroup title="입국" route="Nagoya → Korea" groups={inboundGroups} />
-        </div>
-      </section>
-
-      <section className="visual-board compact-route-board" aria-labelledby="route-board-title">
-        <div className="visual-board-heading">
-          <span>Trip Route</span>
-          <h4 id="route-board-title">5일 일정 한눈에 보기</h4>
-        </div>
-        <div className="compact-days">
-          {days.map((day) => (
-            <article className="compact-day" key={day.date}>
-              <div className="compact-day-pin">
-                <strong>{day.date}</strong>
-                <span>{day.day}</span>
-              </div>
-              <div className="compact-day-copy">
-                <h5>{day.title}</h5>
-                <p>{day.summary}</p>
-                <div className="compact-event-row">
-                  {day.events.slice(0, 4).map((event) => (
-                    <span className={event.type} key={`${day.date}-${event.time}-${event.title}`}>
-                      {eventLabels[event.type]}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </article>
-          ))}
         </div>
       </section>
 

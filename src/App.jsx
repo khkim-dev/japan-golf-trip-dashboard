@@ -2,7 +2,7 @@ import { useState } from 'react'
 import './App.css'
 import { TripInfographic } from './components/TripInfographic'
 import { YardageBook } from './components/YardageBook'
-import { accommodations, golfRounds, infographicDays, travelerTimeline } from './data/schedule'
+import { accommodations, golfRounds, travelerTimeline } from './data/schedule'
 import { yardageCourses } from './data/yardageBook'
 
 const tripStartDate = new Date('2026-10-06T00:00:00+09:00')
@@ -89,7 +89,6 @@ function App() {
               <h2>{activeSection.title}</h2>
               <TripInfographic
                 accommodations={accommodations}
-                days={infographicDays}
                 golfRounds={golfRounds}
                 travelerTimeline={travelerTimeline}
               />
